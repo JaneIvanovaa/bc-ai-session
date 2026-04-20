@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AI Tools for Business Control — Session 1</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#1a1a1a;min-height:100vh}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:1px solid #b8d9cd;background:#fff}
+  .nav-title{font-size:15px;font-weight:700;color:#1a4a3a;letter-spacing:0.5px}
+  .nav-sub{font-size:12px;color:#8a9299;letter-spacing:0.5px}
+  .hero{background:#1a4a3a;padding:48px 28px 44px;position:relative;overflow:hidden}
+  .hero-circle1{position:absolute;right:-40px;top:-40px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.04)}
+  .hero-circle2{position:absolute;right:40px;bottom:-60px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.03)}
+  .hero-badge{display:inline-flex;align-items:center;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:4px 14px;margin-bottom:20px}
+  .hero-badge span{font-size:11px;color:rgba(255,255,255,0.7);letter-spacing:1.5px;text-transform:uppercase;font-weight:500}
+  .hero h1{font-size:30px;font-weight:700;color:#fff;line-height:1.25;margin:0 0 12px}
+  .hero p{font-size:15px;color:rgba(255,255,255,0.65);line-height:1.75;margin:0 0 28px;max-width:480px}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:10px}
+  .hero-tag{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:6px;padding:5px 14px;font-size:12px;color:rgba(255,255,255,0.85);font-weight:500}
+  .info-bar{background:#f5f4f1;border-bottom:1px solid #b8d9cd;padding:14px 28px;display:flex;align-items:center;gap:10px}
+  .info-bar svg{flex-shrink:0}
+  .info-bar p{font-size:13px;color:#4a5560;margin:0}
+  .topics{padding:28px 28px 48px;max-width:820px}
+  .list{display:flex;flex-direction:column;gap:8px}
+  .card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;overflow:hidden;transition:border-color .2s}
+  .card.open{border-color:#b8d9cd}
+  .card-header{width:100%;display:flex;align-items:center;gap:14px;padding:14px 18px;background:none;border:none;cursor:pointer;text-align:left}
+  .card-header:hover{background:#f9f9f8}
+  .card-num{font-size:11px;font-weight:700;color:#8a9299;min-width:24px;letter-spacing:0.5px}
+  .card-cat{font-size:11px;font-weight:600;padding:2px 10px;border-radius:20px;flex-shrink:0;letter-spacing:0.3px}
+  .card-title{font-size:15px;font-weight:600;color:#1a1a1a;flex:1;text-align:left}
+  .card-summary{font-size:12px;color:#8a9299;margin-right:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+  .chevron{transition:transform .25s;flex-shrink:0}
+  .chevron.open{transform:rotate(180deg)}
+  .card-body{display:none;padding:0 18px 20px;border-top:1px solid #e8f2ee}
+  .card-body.open{display:block}
+  .card-desc{font-size:14px;line-height:1.8;color:#4a5560;margin:16px 0 14px}
+  .insight{background:#e8f2ee;border-left:3px solid #1a4a3a;border-radius:0 6px 6px 0;padding:10px 14px;margin-bottom:18px}
+  .insight p{font-size:13px;color:#1a4a3a;line-height:1.65;margin:0;font-weight:500}
+  .ex-label{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:#8a9299;font-weight:600;margin-bottom:10px}
+  .steps{display:flex;flex-direction:column;gap:6px}
+  .step{display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:start}
+  .step-tool{font-size:12px;font-weight:600;padding-top:3px}
+  .step-tool.neutral{color:#8a9299}
+  .step-tool.bad{color:#a03030}
+  .step-tool.good{color:#2d6e58}
+  .step-action{font-size:13px;line-height:1.65;display:block}
+  .step-action.prompt{font-family:monospace;font-size:12px;background:#f5f4f1;padding:3px 8px;border-radius:5px}
+  .step-action.bad-txt{color:#a03030}
+  .step-action.good-txt{color:#1a4a3a}
+  .footer{background:#1a4a3a;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .footer-title{font-size:15px;font-weight:700;color:#fff;letter-spacing:0.5px}
+  .footer-sub{font-size:12px;color:rgba(255,255,255,0.45)}
+  @media(max-width:520px){
+    .nav,.hero,.topics,.info-bar,.footer{padding-left:16px;padding-right:16px}
+    .card-summary{display:none}
+  }
+</style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:IFDocumentType msdt:dt="string">3;#Team document|be5fa4ed-48d1-4150-95c2-308c52a986dc</mso:IFDocumentType>
+<mso:IFTeamCode msdt:dt="string">1;#Finance BV|f8fb2498-74d8-4ccc-aed7-9ad60d9d7c75</mso:IFTeamCode>
+<mso:mae6acee8e1b41438e49b85d8a93071a msdt:dt="string"></mso:mae6acee8e1b41438e49b85d8a93071a>
+<mso:a14312d9753a4c7a990142d59d22bd35 msdt:dt="string">Internal|ee3d3cf2-f8cc-48b7-b605-518b36531015</mso:a14312d9753a4c7a990142d59d22bd35>
+<mso:f3b139854a2e41e68f8569bc66fca2e2 msdt:dt="string">Finance BV|f8fb2498-74d8-4ccc-aed7-9ad60d9d7c75</mso:f3b139854a2e41e68f8569bc66fca2e2>
+<mso:MediaServiceImageTags msdt:dt="string"></mso:MediaServiceImageTags>
+<mso:IFScope msdt:dt="string">2;#Local|a823bb1f-3f20-4d84-8641-85aa3695cc22</mso:IFScope>
+<mso:dc7d955694134c7e9579bb7f2e9642d1 msdt:dt="string"></mso:dc7d955694134c7e9579bb7f2e9642d1>
+<mso:IFDocumentTags msdt:dt="string"></mso:IFDocumentTags>
+<mso:IFCustomerCode msdt:dt="string"></mso:IFCustomerCode>
+<mso:o467ae365adb4b10989e33b7a7077875 msdt:dt="string">Team document|be5fa4ed-48d1-4150-95c2-308c52a986dc</mso:o467ae365adb4b10989e33b7a7077875>
+<mso:lcf76f155ced4ddcb4097134ff3c332f msdt:dt="string"></mso:lcf76f155ced4ddcb4097134ff3c332f>
+<mso:TaxCatchAll msdt:dt="string">4;#Internal|ee3d3cf2-f8cc-48b7-b605-518b36531015;#3;#Team document|be5fa4ed-48d1-4150-95c2-308c52a986dc;#2;#Local|a823bb1f-3f20-4d84-8641-85aa3695cc22;#1;#Finance BV|f8fb2498-74d8-4ccc-aed7-9ad60d9d7c75</mso:TaxCatchAll>
+<mso:aea9fc3497304e55a556595bd147cad2 msdt:dt="string"></mso:aea9fc3497304e55a556595bd147cad2>
+<mso:IFSupplierCode msdt:dt="string"></mso:IFSupplierCode>
+<mso:IFDataClassification msdt:dt="string">4;#Internal|ee3d3cf2-f8cc-48b7-b605-518b36531015</mso:IFDataClassification>
+<mso:i26d185ac5cb4dbb943aae376a64320f msdt:dt="string">Local|a823bb1f-3f20-4d84-8641-85aa3695cc22</mso:i26d185ac5cb4dbb943aae376a64320f>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+
+<div class="nav">
+  <span class="nav-title">Business Control</span>
+  <span class="nav-sub">European Hub</span>
+</div>
+
+<div class="hero">
+  <div class="hero-circle1"></div>
+  <div class="hero-circle2"></div>
+  <div class="hero-badge"><span>Session 1</span></div>
+  <h1>AI Tools for<br>Business Control</h1>
+  <p>A practical introduction to the AI tools available to us — what they do, when to use them, and how to get results that actually help your work.</p>
+  <div class="hero-tags">
+    <span class="hero-tag">ChatGPT</span>
+    <span class="hero-tag">Microsoft Copilot</span>
+    <span class="hero-tag">Databricks Genie</span>
+  </div>
+</div>
+
+<div class="info-bar">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <circle cx="8" cy="8" r="7" stroke="#1a4a3a" stroke-width="1.5"/>
+    <path d="M8 7v4M8 5.5v.5" stroke="#1a4a3a" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+  <p>Use this page as your reference after the session. Click any topic to read the explanation and see a practical example.</p>
+</div>
+
+<div class="topics">
+  <div class="list" id="list"></div>
+</div>
+
+<div class="footer">
+  <span class="footer-title">Business Control · AI Session 1</span>
+  <span class="footer-sub">Interfood European Hub</span>
+</div>
+
+<script>
+const topics = [
+  {num:"01",cat:"Tools overview",catBg:"#e8f2ee",catColor:"#1a4a3a",title:"ChatGPT vs Copilot",summary:"Two tools for two different moments",desc:"ChatGPT and Copilot are both AI assistants, but they solve different problems. ChatGPT is a general-purpose tool — best when you need to think, structure ideas, write, or analyse something from scratch. Copilot lives inside Microsoft tools like Excel, Outlook, and PowerPoint — it helps you work faster inside the files and apps you already use every day.",insight:"Use them together, not as alternatives. ChatGPT helps you think and prepare. Copilot helps you execute and finalise.",exLabel:"Example — Working with a long report",steps:[{tool:"ChatGPT",type:"neutral",action:"Paste the report → ask for a summary and key insights",prompt:false},{tool:"Copilot",type:"neutral",action:"Take those insights → turn them into slides directly in PowerPoint",prompt:false}]},
+  {num:"02",cat:"Core skill",catBg:"#e8f2ee",catColor:"#1a4a3a",title:"Prompting",summary:"Input quality decides output quality",desc:"Prompting is how you communicate with AI. Vague instructions produce generic results. Structured instructions produce useful, specific ones. AI does not guess your intent — you need to describe what you want clearly.",insight:"A simple structure that works every time: Role + Task + Context + Output format.",exLabel:"Example — Summarising a report",steps:[{tool:"Weak",type:"bad",action:'"Summarise this report"',prompt:true},{tool:"Strong",type:"good",action:'"You are a financial analyst. Summarise this report in 5 bullet points for management, focusing on key risks and trends."',prompt:true}]},
+  {num:"03",cat:"Settings",catBg:"#eef2fb",catColor:"#2a4080",title:"Customisation & memory",summary:"Make ChatGPT work for you",desc:"ChatGPT has two personalisation tools. Customisation settings define how it should always respond — tone, format, level of detail. Memory allows it to remember information about you over time, like your role or preferences, so you don't have to repeat context every session.",insight:"Avoid storing sensitive business data in memory. Use it for role context and communication preferences only.",exLabel:"Example — Personalising for Business Control",steps:[{tool:"Set memory",type:"neutral",action:'"Remember that I work in business control and prefer concise answers"',prompt:true},{tool:"Result",type:"neutral",action:"Future responses adapt automatically — shorter, more relevant to financial and data topics",prompt:false}]},
+  {num:"04",cat:"Feature",catBg:"#fdf3e3",catColor:"#c8882a",title:"Canvas",summary:"Write and refine documents with AI",desc:"Canvas is a collaborative workspace inside ChatGPT where you create and improve content side by side with the AI. Instead of copying text between chat and a document, you work directly in a shared space — drafting, restructuring, refining — all in one flow.",insight:"Most useful for reports, emails, and structured documents where several rounds of revision are needed.",exLabel:"Example — Monthly performance report",steps:[{tool:"Step 1",type:"neutral",action:'"Create a draft of a monthly sales performance report"',prompt:true},{tool:"Step 2",type:"neutral",action:'"Make this more concise"',prompt:true},{tool:"Step 3",type:"neutral",action:'"Add a conclusion section"',prompt:true}]},
+  {num:"05",cat:"Feature",catBg:"#fdf3e3",catColor:"#c8882a",title:"Web search",summary:"Access current information",desc:"By default, ChatGPT only knows what it was trained on, which has a cut-off date. With web search enabled, it retrieves current information from the internet and includes sources in its answer. Useful whenever you need recent data, market trends, or anything time-sensitive.",insight:"Web search improves freshness, not necessarily accuracy. Always validate critical business information from a trusted source.",exLabel:"Example — Dairy market research",steps:[{tool:"Prompt",type:"neutral",action:'"What are the latest dairy price trends in Europe in 2025?"',prompt:true},{tool:"Result",type:"neutral",action:"ChatGPT retrieves recent articles and shows sources alongside the answer",prompt:false}]},
+  {num:"06",cat:"Feature",catBg:"#fdf3e3",catColor:"#c8882a",title:"Thinking vs Research mode",summary:"Different tasks, different answers",desc:"Thinking mode improves the depth of reasoning — ideal for complex problems that need step-by-step logic. Research mode improves coverage — ideal when you need a comprehensive, structured overview of a topic.",insight:"Thinking → use when you need to understand why something happened. Research → use when you need a structured overview.",exLabel:"Example — Analysing supply chain risks",steps:[{tool:"Thinking",type:"neutral",action:"Deeper reasoning: why did margins decrease? What are the root causes?",prompt:false},{tool:"Research",type:"neutral",action:"Broader coverage: structured overview of supply chain risks across the dairy industry",prompt:false}]},
+  {num:"07",cat:"Organisation",catBg:"#f0eefa",catColor:"#5a3a90",title:"Projects",summary:"Keep related work in one place",desc:"Projects group related chats, files, and context together inside ChatGPT. You upload files once and reuse them across multiple chats, keeping ongoing work in one place. Note: chats inside a project are still separate — they do not automatically share all information with each other.",insight:"Think of a project as a folder. Each chat inside it is a separate document, but they share the same uploaded files and context.",exLabel:"Example — Reporting automation project",steps:[{tool:"Create",type:"neutral",action:'Project: "Reporting Automation"',prompt:false},{tool:"Upload",type:"neutral",action:"Add your data templates once — reuse them in every chat in the project",prompt:false},{tool:"Organise",type:"neutral",action:"Separate chats for: analysis / draft report / presentation prep",prompt:false}]},
+  {num:"08",cat:"Advanced",catBg:"#f0eefa",catColor:"#5a3a90",title:"Custom GPTs & agents",summary:"Pre-configured assistants for specific tasks",desc:"Custom GPTs are specialised versions of ChatGPT with predefined instructions, a specific workflow, and consistent output. Instead of writing a long setup prompt every time, you open the right GPT and it already knows exactly what to do.",insight:"Best for repetitive or standardised tasks where consistency matters — reporting, formatting, document generation.",exLabel:"Example — Presentation generator",steps:[{tool:"Open",type:"neutral",action:"Open a custom Presentation Generator GPT",prompt:false},{tool:"Prompt",type:"neutral",action:'"Create a 5-slide presentation about Q3 sales performance"',prompt:true},{tool:"Result",type:"neutral",action:"Structured slides with the right format, sections, and tone — every time",prompt:false}]},
+  {num:"09",cat:"Analytics",catBg:"#e8f2ee",catColor:"#1a4a3a",title:"ChatGPT in Excel",summary:"Focus on insight, not mechanics",desc:"ChatGPT can write formulas, explain logic, clean messy data, and help interpret datasets — all in plain language. You describe what you need and it gives you the formula or analysis, without manual searching or trial and error.",insight:"Especially useful when you know what result you want but not how to build it in Excel.",exLabel:"Example — Formulas and analysis",steps:[{tool:"Formula",type:"neutral",action:'"Write a formula to calculate margin % between column B and column C"',prompt:true},{tool:"Analysis",type:"neutral",action:'"Analyse this dataset and highlight key trends or outliers"',prompt:true}]},
+  {num:"10",cat:"Data",catBg:"#e8f2ee",catColor:"#1a4a3a",title:"Genie agent (Databricks)",summary:"Query data in plain language",desc:"Genie is an AI agent inside Databricks that translates your questions into data queries and returns results directly. You ask in plain English and Genie pulls the relevant data from the database — no SQL knowledge required.",insight:"More people in Business Control can access data independently — without waiting for a technical colleague for every request.",exLabel:"Example — Sales data query",steps:[{tool:"You ask",type:"neutral",action:'"Show monthly sales trend for the last 6 months by region"',prompt:true},{tool:"Genie",type:"neutral",action:"Translates your question to SQL, runs it, and returns a result as a table or chart",prompt:false}]}
+];
+
+const list = document.getElementById('list');
+
+topics.forEach(t => {
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  const stepsHTML = t.steps.map(s => {
+    const actionClass = 'step-action' + (s.prompt ? ' prompt' : '') + (s.type==='bad' ? ' bad-txt' : s.type==='good' ? ' good-txt' : '');
+    return `<div class="step">
+      <span class="step-tool ${s.type}">${s.tool}</span>
+      <span class="${actionClass}">${s.action}</span>
+    </div>`;
+  }).join('');
+
+  card.innerHTML = `
+    <button class="card-header" onclick="toggle(this)">
+      <span class="card-num">${t.num}</span>
+      <span class="card-cat" style="background:${t.catBg};color:${t.catColor}">${t.cat}</span>
+      <span class="card-title">${t.title}</span>
+      <span class="card-summary">${t.summary}</span>
+      <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M4 6l4 4 4-4" stroke="#4a5560" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="card-body">
+      <p class="card-desc">${t.desc}</p>
+      <div class="insight"><p>${t.insight}</p></div>
+      <p class="ex-label">${t.exLabel}</p>
+      <div class="steps">${stepsHTML}</div>
+    </div>`;
+
+  list.appendChild(card);
+});
+
+function toggle(btn) {
+  const card = btn.closest('.card');
+  const body = card.querySelector('.card-body');
+  const chev = btn.querySelector('.chevron');
+  const sum  = btn.querySelector('.card-summary');
+  const isOpen = body.classList.toggle('open');
+  card.classList.toggle('open', isOpen);
+  chev.classList.toggle('open', isOpen);
+  if (sum) sum.style.display = isOpen ? 'none' : 'block';
+}
+</script>
+</body>
+</html>
