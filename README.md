@@ -1,1 +1,1 @@
-# bc-ai-session
+# ai-session
