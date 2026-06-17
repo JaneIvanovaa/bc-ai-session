@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Session 1 · Start with Your AI Tool</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0ede6;color:#1a1a1a;min-height:100vh}
+
+  /* TOPBAR */
+  .topbar{background:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e5e3dc}
+  .topbar-left{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#2d5a3d}
+  .topbar-dot{width:10px;height:10px;border-radius:50%;background:#2d5a3d}
+
+  /* OUTER WRAP */
+  .page{max-width:1100px;margin:0 auto;padding:40px 24px 80px}
+
+  /* HERO */
+  .hero-wrap{background:#fff;border-radius:16px;padding:36px 40px 32px;margin-bottom:28px;display:grid;grid-template-columns:1fr 320px;gap:32px;align-items:start}
+  .hero h1{font-size:36px;font-weight:800;color:#1a1a1a;line-height:1.15;margin-bottom:12px}
+  .hero-desc{font-size:15px;color:#555;line-height:1.7;margin-bottom:20px;max-width:500px}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:16px}
+  .meta-item{font-size:13px;color:#444;display:flex;align-items:center;gap:5px;background:#f0ede6;border:1px solid #e0ddd5;border-radius:20px;padding:5px 12px}
+
+  /* OUTCOME CARD */
+  .outcome-card{background:#fff;border:1px solid #c8dfc8;border-radius:12px;padding:20px}
+  .outcome-card .oc-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .oc-dot{width:10px;height:10px;border-radius:50%;background:#2d5a3d;flex-shrink:0}
+  .oc-label{font-size:13px;font-weight:700;color:#2d5a3d}
+  .outcome-card p{font-size:13px;color:#333;line-height:1.7;font-weight:500}
+
+  /* MENU */
+  .menu-title{font-size:24px;font-weight:800;color:#1a1a1a;margin-bottom:4px}
+  .menu-sub{font-size:14px;color:#888;margin-bottom:20px}
+
+  /* SECTION GRID */
+  .sec-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+  /* SECTION CARD */
+  .sec-card{background:#fff;border-radius:14px;padding:24px;display:flex;flex-direction:column;border:1px solid #e5e3dc;transition:box-shadow .2s}
+  .sec-card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.07)}
+  .sec-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+  .sec-badge{width:30px;height:30px;border-radius:50%;background:#e8f2ee;color:#2d5a3d;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .sec-time{font-size:12px;color:#aaa;font-weight:500}
+  .sec-card h3{font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:8px;line-height:1.3}
+  .sec-card p{font-size:13px;color:#666;line-height:1.65;flex:1}
+  .sec-btn{margin-top:18px;display:inline-flex;align-items:center;gap:6px;background:#e8f2ee;color:#2d5a3d;border:none;border-radius:20px;padding:7px 16px;font-size:12px;font-weight:600;cursor:pointer;transition:background .15s;align-self:flex-start}
+  .sec-btn:hover{background:#d0e8d8}
+  .sec-btn svg{transition:transform .25s;flex-shrink:0}
+  .sec-btn.open svg{transform:rotate(180deg)}
+
+  /* SECTION BODY */
+  .sec-body{display:none;margin-top:18px;padding-top:18px;border-top:1px solid #eeeae4}
+  .sec-body.open{display:block}
+
+  .body-intro{font-size:13px;color:#555;line-height:1.75;margin-bottom:16px}
+  .sub-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#2d5a3d;margin:16px 0 8px}
+  .sub-h:first-child{margin-top:0}
+
+  ul.bl{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:4px}
+  ul.bl li{font-size:13px;color:#444;line-height:1.65;padding-left:14px;position:relative}
+  ul.bl li::before{content:'·';position:absolute;left:0;color:#2d5a3d;font-weight:700;font-size:18px;line-height:1.2}
+  ul.bl li strong{color:#1a1a1a}
+
+  .tip{background:#f0f7f2;border-left:3px solid #2d5a3d;border-radius:0 8px 8px 0;padding:10px 14px;margin:12px 0;font-size:13px;color:#2d4a35;line-height:1.65;font-weight:500}
+  .warn{background:#fff8ec;border:1px solid #f0d080;border-radius:8px;padding:10px 14px;margin:12px 0;font-size:13px;color:#6b4500;line-height:1.6}
+
+  /* COMPARE */
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+  .cmp-col{border-radius:8px;padding:14px;border:1px solid #e0ded8}
+  .cmp-col.g{background:#f0f7f2;border-color:#b8d9c4}
+  .cmp-col.gr{background:#f5f4f1;border-color:#dddad3}
+  .cmp-col h4{font-size:12px;font-weight:700;color:#1a1a1a;margin-bottom:8px}
+  .ci{display:flex;gap:7px;font-size:11px;color:#444;line-height:1.5;margin-bottom:4px;align-items:flex-start}
+  .ci b{flex-shrink:0;font-size:12px;margin-top:-1px}
+  .ci b.y{color:#2a7a44}
+  .ci b.n{color:#c03030}
+
+  /* MATRIX */
+  .mx-wrap{overflow-x:auto;margin:10px 0}
+  table.mx{width:100%;border-collapse:collapse;font-size:11px}
+  table.mx th{background:#2d5a3d;color:#fff;padding:8px 10px;text-align:left;font-weight:600}
+  table.mx td{padding:7px 10px;border-bottom:1px solid #eeeae4;color:#444}
+  table.mx tr:hover td{background:#f6f5f1}
+  .mg{color:#2a7a44;font-weight:700}
+  .mb{color:#c03030;font-weight:700}
+
+  /* EXERCISE */
+  .exbox{background:#f6f5f1;border-radius:8px;padding:14px;margin:10px 0}
+  .exbox h4{font-size:12px;font-weight:700;color:#1a1a1a;margin-bottom:10px}
+  .ex-row{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start}
+  .ex-n{width:24px;height:24px;border-radius:50%;background:#2d5a3d;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+  .ex-row p{font-size:12px;color:#444;line-height:1.6}
+
+  .exlist{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+  .exlist-item{background:#f6f5f1;border-radius:7px;padding:10px 12px}
+  .exlist-item .el{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:3px}
+  .el.cop{color:#2d5a3d}
+  .el.both{color:#c8882a}
+  .exlist-item p{font-size:12px;color:#444;line-height:1.55}
+
+  /* REMEMBER */
+  .remember{background:#fff;border-radius:14px;padding:28px;margin-top:20px;border:1px solid #e5e3dc}
+  .remember h3{font-size:17px;font-weight:700;margin-bottom:14px}
+  .remember ul{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+  .remember ul li{font-size:13px;color:#444;padding-left:18px;position:relative;line-height:1.6}
+  .remember ul li::before{content:'›';position:absolute;left:0;color:#2d5a3d;font-weight:700;font-size:16px;line-height:1.2}
+  .remember ul li strong{color:#1a1a1a}
+  .assess{border-top:1px solid #eeeae4;padding-top:16px}
+  .assess .al{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#2d5a3d;margin-bottom:6px}
+  .assess p{font-size:13px;color:#444;line-height:1.65}
+
+  /* FOOTER */
+  footer{background:#2d5a3d;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:0}
+  footer strong{font-size:13px;color:#fff}
+  footer span{font-size:13px;color:rgba(255,255,255,0.45)}
+
+  @media(max-width:700px){
+    .sec-grid,.cmp,.hero-wrap{grid-template-columns:1fr}
+    .hero-wrap{padding:24px}
+    .page{padding:20px 16px 60px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-dot"></div>
+    Analytics & AI Café
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero-wrap">
+    <div class="hero">
+      <h1>Session 1 · Start with Your AI Tool</h1>
+      <p class="hero-desc">Together for better — a unique perspective on AI in daily work. Learn which tool to reach for, when, and why Copilot is your best starting point at Interfood.</p>
+      <div class="hero-meta">
+        <div class="meta-item">📅 June 2026</div>
+        <div class="meta-item">🧭 Format: 4 guided sections</div>
+        <div class="meta-item">⏱️ Total time: 45–60 min</div>
+      </div>
+    </div>
+    <div class="outcome-card">
+      <div class="oc-header"><div class="oc-dot"></div><span class="oc-label">Expected outcome</span></div>
+      <p>You can choose the right AI tool for any task, explain when Copilot vs ChatGPT adds more value, use the AI Use Case Matrix confidently, and complete the assessment to earn your AI starter badge.</p>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <div class="menu-title">Menu</div>
+  <div class="menu-sub">Follow along, click to expand, and practice as you go.</div>
+
+  <div class="sec-grid">
+
+    <!-- CARD 1 -->
+    <div class="sec-card" id="s1">
+      <div class="sec-card-top">
+        <div class="sec-badge">1</div>
+        <span class="sec-time">15 min</span>
+      </div>
+      <h3>Watch First — AI Training Video</h3>
+      <p>An introduction to AI at Interfood by Moela — approx. 14 minutes</p>
+      <button class="sec-btn" onclick="toggle('s1')">
+        Show details & tips
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#2d5a3d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="sec-body" id="b1">
+        <p class="body-intro">Before the session begins, watch the official Interfood AI compliance training video. It gives everyone the same foundation so we can build on it together.</p>
+        <div class="sub-h">What the video covers</div>
+        <ul class="bl">
+          <li><strong>What is AI & GenAI?</strong> — the basics of how AI works and what generative AI means</li>
+          <li><strong>6 AI personas</strong> — writer, analyst, assistant, advisor, artist, robot</li>
+          <li><strong>Responsible & ethical AI use</strong> — fairness, bias, human oversight</li>
+          <li><strong>Malicious AI & deepfakes</strong> — what to watch out for and how to verify</li>
+          <li><strong>Getting started at Interfood</strong> — approved tools and how to access them</li>
+        </ul>
+        <div class="tip">After watching, you are ready for the assessment at the end of this session. The video covers everything you need to know.</div>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="sec-card" id="s2">
+      <div class="sec-card-top">
+        <div class="sec-badge">2</div>
+        <span class="sec-time">15 min</span>
+      </div>
+      <h3>Why Start with Copilot?</h3>
+      <p>It's the same brain — but already inside your Microsoft workspace</p>
+      <button class="sec-btn" onclick="toggle('s2')">
+        Show details
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#2d5a3d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="sec-body" id="b2">
+        <p class="body-intro">Copilot runs on the same ChatGPT models and Claude — but works directly inside Outlook, Teams, Word, Excel, and SharePoint. You don't switch tools, you don't copy-paste. It works where you already are.</p>
+        <div class="sub-h">What makes Copilot different</div>
+        <ul class="bl">
+          <li><strong>Knows your files</strong> — ask "Who is responsible for M2M?" and Copilot finds the answer in your internal docs. ChatGPT cannot.</li>
+          <li><strong>Works in your inbox</strong> — summarise emails, set out-of-office, find specific emails without copy-pasting.</li>
+          <li><strong>Knows your meetings</strong> — get meeting summaries and action points directly in the Teams chat.</li>
+          <li><strong>Secure by default</strong> — your data stays in Interfood's Microsoft environment.</li>
+        </ul>
+        <div class="sub-h">ChatGPT vs Copilot</div>
+        <div class="warn">⚠️ <strong>Do not use free ChatGPT</strong> — only ChatGPT paid (Teams) or Copilot. Free ChatGPT does not meet Interfood's security requirements.</div>
+        <div class="cmp">
+          <div class="cmp-col g">
+            <h4>Copilot</h4>
+            <div class="ci"><b class="y">✓</b><span>Access to all Interfood files, emails, Teams & calendar</span></div>
+            <div class="ci"><b class="y">✓</b><span>Works inside Outlook, Word, Excel, PowerPoint</span></div>
+            <div class="ci"><b class="y">✓</b><span>Knows colleagues & internal processes</span></div>
+            <div class="ci"><b class="y">✓</b><span>Uses ChatGPT models + Claude (via Copilot Cowork)</span></div>
+
+          </div>
+          <div class="cmp-col gr">
+            <h4>ChatGPT (paid)</h4>
+            <div class="ci"><b class="y">✓</b><span>Deep analysis of uploaded files</span></div>
+            <div class="ci"><b class="y">✓</b><span>Strong at research and writing</span></div>
+            <div class="ci"><b class="n">✗</b><span>Does NOT know internal Interfood data</span></div>
+            <div class="ci"><b class="n">✗</b><span>Cannot work in Outlook or Teams</span></div>
+            <div class="ci"><b class="y">✓</b><span>Use as a complement when Copilot falls short</span></div>
+          </div>
+        </div>
+        <div class="tip">Start with Copilot. If something doesn't work there, check the Use Case Matrix.</div>
+      </div>
+    </div>
+
+
+
+  </div><!-- end sec-grid -->
+
+  <!-- REMEMBER -->
+  <div class="remember">
+    <h3>Closing & Next Step</h3>
+    <ul>
+      <li>Start with Copilot — it works for most Interfood tasks</li>
+      <li><strong>Do NOT use free ChatGPT</strong> — only paid ChatGPT</li>
+      <li>If you do not know what tool to use, check the <a href="https://365interfood.sharepoint.com/:x:/s/GlobalIT/ETvBP3xN1kFEqpz8h5B1TN8BWzsfvudcKPvfninZV0XhdQ?e=DeJwCV" target="_blank" style="color:#2d5a3d;font-weight:600">AI Usecase Matrix</a></li>
+      <li>AI tools change fast — keep experimenting and share what works on iNet</li>
+    </ul>
+    <div class="assess">
+      <div class="al">Assessment</div>
+      <p>Complete the short assessment to earn your <strong>AI starter badge</strong> and AI license. The assessment is based on the training video from Section 1.</p>
+    </div>
+  </div>
+
+</div><!-- end page -->
+
+<footer>
+  <strong>Analytics & AI Café · Session 1 · Start with Your AI Tool</strong>
+  <span>Interfood · June 2026</span>
+</footer>
+
+<script>
+function toggle(id){
+  const card = document.getElementById(id);
+  const body = document.getElementById('b'+id.slice(1));
+  const btn  = card.querySelector('.sec-btn');
+  const isOpen = body.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  const labels = {s1:'Show details & tips', s2:'Show details', s3:'Show details', s4:'Show details & exercise'};
+  btn.childNodes[0].textContent = isOpen ? 'Hide details ' : labels[id]+' ';
+}
+</script>
+</body>
+</html>
